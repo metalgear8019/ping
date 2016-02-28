@@ -61,12 +61,20 @@ public class Ball extends Rectangle {
         this.xVel = xVel;
     }
 
+    public void addVelocityX(float xVel) {
+        this.xVel += xVel;
+    }
+
     public float getVelocityY() {
         return yVel;
     }
 
     public void setVelocityY(float yVel) {
         this.yVel = yVel;
+    }
+
+    public void addVelocityY(float yVel) {
+        this.yVel += yVel;
     }
 
     public void reverseDirectionX() {
@@ -83,6 +91,14 @@ public class Ball extends Rectangle {
     }
 
     // TODO: below are copy pasted, to be refactored
+    public void resetVelocityX(int direction) {
+        xVel = -1 * VELOCITY_DEFAULT * direction;
+    }
+
+    public void resetVelocityY(int direction) {
+        yVel = -1 * VELOCITY_DEFAULT * direction;
+    }
+
     public float getCombinedVelocity(float delta) {
         double velSquared = Math.pow(xVel, 2) + Math.pow(yVel, 2);
         return (float) Math.sqrt(velSquared) * delta;

@@ -15,6 +15,7 @@ public class Paddle extends Rectangle {
 
     // state of actor
     private boolean tweening;
+    public String name;
 
     public Paddle(int xPos) {
         this(SettingsManager.get().getPaddleTexture(), xPos);
@@ -53,5 +54,17 @@ public class Paddle extends Rectangle {
 
     public float getCenterY() {
         return y + (height / 2);
+    }
+
+    public void dispose() {
+        texture.dispose();
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 }

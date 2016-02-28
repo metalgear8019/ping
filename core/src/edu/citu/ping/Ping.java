@@ -20,6 +20,7 @@ import edu.citu.ping.actors.Paddle;
 import edu.citu.ping.literals.Constants;
 import edu.citu.ping.managers.ScreenManager;
 import edu.citu.ping.managers.SettingsManager;
+import edu.citu.ping.managers.StateManager;
 import edu.citu.ping.screens.BaseScreen;
 import edu.citu.ping.screens.LoadingScreen;
 
@@ -30,6 +31,8 @@ public class Ping extends Game {
 	public ScreenManager screens;
 	public AssetManager assets;
 	public TweenManager tweens;
+	public SettingsManager settings;
+	public StateManager states;
 
 	// default dimensions
 	public static final int WIDTH=800;
@@ -84,6 +87,6 @@ public class Ping extends Game {
 	}
 
 	private void setupSettingsManager() {
-		SettingsManager.initialize(this);
+		settings = SettingsManager.initialize(this);
 	}
 }

@@ -22,6 +22,7 @@ import edu.citu.ping.actors.ParticleEmitter;
 import edu.citu.ping.managers.ScreenManager;
 import edu.citu.ping.managers.SettingsManager;
 import edu.citu.ping.utils.LabelGenerator;
+import edu.citu.ping.utils.ListenerGenerator;
 
 /**
  * Created by metalgear8019 on 2/28/16.
@@ -47,9 +48,9 @@ public class MainMenuScreen implements BaseScreen {
         TextButton settingsButton = new TextButton("Settings", skin);
         TextButton creditsButton = new TextButton("Credits", skin);
 
-        textButton.addListener(goToScreen(new GameScreen(game)));
-        settingsButton.addListener(goToScreen(new SettingsScreen(game)));
-        creditsButton.addListener(goToScreen(new CreditsScreen(game)));
+        textButton.addListener(ListenerGenerator.goToScreen(new GameScreen(game)));
+        // settingsButton.addListener(ListenerGenerator.goToScreen(new SettingsScreen(game)));
+        // creditsButton.addListener(ListenerGenerator.goToScreen(new CreditsScreen(game)));
 
         table = new Table();
         table.setFillParent(true);
@@ -63,16 +64,6 @@ public class MainMenuScreen implements BaseScreen {
         table.add(creditsButton).width(200).height(75);
 
         stage.addActor(table);
-    }
-
-    private ClickListener goToScreen(final BaseScreen nextScreen) {
-        return new ClickListener() {
-            @Override
-            public void touchUp(InputEvent e, float x, float y, int point, int button) {
-                Gdx.input.setInputProcessor(null);
-                ScreenManager.get().swap(nextScreen);
-            }
-        };
     }
 
     @Override
@@ -92,12 +83,14 @@ public class MainMenuScreen implements BaseScreen {
 
     @Override
     public Tween getOutroTween() {
-        return null;
+        return Tween.to(table, TableAccessor.POSITION_X, .8f)
+                .targetRelative(800)
+                .ease(Back.IN);
     }
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -178,6 +171,6 @@ public class MainMenuScreen implements BaseScreen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 }

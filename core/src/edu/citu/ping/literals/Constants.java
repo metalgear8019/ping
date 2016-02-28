@@ -14,4 +14,5 @@ public class Constants {
 
     public static final String BGM_001 = "recall_of_the_shadows.mp3";
     public static final String BGM_002 = "8bit_airship.ogg";
+    public static final String SEMICOLON = ";";
 }
