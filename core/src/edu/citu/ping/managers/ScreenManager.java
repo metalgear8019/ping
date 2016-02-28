@@ -3,7 +3,10 @@ package edu.citu.ping.managers;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.TweenCallback;
 import edu.citu.ping.Ping;
+import edu.citu.ping.screens.BaseScreen;
 
 /**
  * Created by metalgear8019 on 2/28/16.
@@ -11,11 +14,6 @@ import edu.citu.ping.Ping;
 public class ScreenManager {
     private static ScreenManager INSTANCE;
     private Ping game;
-
-    public interface Callback {
-        public void onSwap(Game g, Screen nextScreen);
-        public void onSwapFinish(Game g, Screen nextScreen);
-    }
 
     public ScreenManager(Ping g) {
         game = g;
@@ -33,15 +31,21 @@ public class ScreenManager {
     /**
      * Switches current screen to another screen
      * Automatically plays getOutroTween() of current & getIntroTween() of next
-     * @param callback
      * @param nextScreen
      * @return this
      */
-    public ScreenManager swap(final Callback callback, Screen nextScreen) {
-        callback.onSwap(game, nextScreen);
-        game.getScreen().dispose();
-        game.setScreen(nextScreen);
-        callback.onSwapFinish(game, nextScreen);
+    public ScreenManager swap(final BaseScreen nextScreen) {
+
+        game.getScreen().getOutroTween().setCallback(new TweenCallback() {
+            @Override
+            public void onEvent(int type, BaseTween<?> source) {
+                game.getScreen().dispose();
+                game.setScreen(nextScreen);
+
+                nextScreen.getIntroTween().start(game.tweens);
+            }
+        }).start(game.tweens);
+
         return this;
     }
 

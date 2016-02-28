@@ -30,6 +30,7 @@ public class Paddle extends Rectangle {
         y = (Ping.HEIGHT / 2) - (height / 2);
     }
 
+    // TODO: code below to be refactored
     public boolean isTweening() {
         return tweening;
     }

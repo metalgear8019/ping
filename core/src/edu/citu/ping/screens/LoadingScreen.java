@@ -48,6 +48,11 @@ public class LoadingScreen implements BaseScreen {
         stage.addActor(table);
     }
 
+    private boolean isLoadingDone() {
+        Gdx.app.debug(this.getClass().getSimpleName(), "Currently checking loading progress...");
+        return (game.assets.update()) && (progressBar.getValue() == progressBar.getVisualValue()) && (game.tweens.size() == 0);
+    }
+
     @Override
     public Tween getIntroTween() {
         return null;
@@ -83,6 +88,11 @@ public class LoadingScreen implements BaseScreen {
         // redraw stage that contains all actors
         stage.act(delta);
         stage.draw();
+
+        if (isLoadingDone()) {
+            Gdx.app.debug(this.getClass().getSimpleName(), "Now switching screens...");
+            ScreenManager.get().swap(new MainMenuScreen(game));
+        }
     }
 
     @Override
@@ -107,6 +117,6 @@ public class LoadingScreen implements BaseScreen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 }

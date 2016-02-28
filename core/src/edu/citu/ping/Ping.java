@@ -1,6 +1,8 @@
 package edu.citu.ping;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -18,6 +20,8 @@ import edu.citu.ping.actors.Paddle;
 import edu.citu.ping.literals.Constants;
 import edu.citu.ping.managers.ScreenManager;
 import edu.citu.ping.managers.SettingsManager;
+import edu.citu.ping.screens.BaseScreen;
+import edu.citu.ping.screens.LoadingScreen;
 
 public class Ping extends Game {
 	public SpriteBatch batch;
@@ -33,6 +37,7 @@ public class Ping extends Game {
 	
 	@Override
 	public void create () {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		batch = new SpriteBatch();
 		initialize();
 	}
@@ -47,11 +52,16 @@ public class Ping extends Game {
 		batch.dispose();
 	}
 
+	public BaseScreen getScreen() {
+		return (BaseScreen) super.getScreen();
+	}
+
 	private void initialize() {
 		setupScreenManager();
 		setupTweenManager();
 		setupAssetManager();
 		setupSettingsManager();
+		setScreen(new LoadingScreen(this));
 	}
 
 	private void setupScreenManager() {

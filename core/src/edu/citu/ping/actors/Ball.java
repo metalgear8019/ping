@@ -45,8 +45,83 @@ public class Ball extends Rectangle {
         resetPosition();
     }
 
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
+
+    public float getVelocityX() {
+        return xVel;
+    }
+
+    public void setVelocityX(float xVel) {
+        this.xVel = xVel;
+    }
+
+    public float getVelocityY() {
+        return yVel;
+    }
+
+    public void setVelocityY(float yVel) {
+        this.yVel = yVel;
+    }
+
+    public void reverseDirectionX() {
+        xVel *= -1;
+    }
+
+    public void reverseDirectionY() {
+        yVel *= -1;
+    }
+
     public void resetPosition() {
         this.x = Ping.WIDTH / 2;
         this.y = Ping.HEIGHT / 2;
     }
+
+    // TODO: below are copy pasted, to be refactored
+    public float getCombinedVelocity(float delta) {
+        double velSquared = Math.pow(xVel, 2) + Math.pow(yVel, 2);
+        return (float) Math.sqrt(velSquared) * delta;
+    }
+
+    public void moveX(float deltaTime) {
+        this.x += this.xVel * deltaTime;
+    }
+
+    public void moveY(float deltaTime) {
+        this.y -= this.yVel * deltaTime;
+    }
+
+    public void dispose() {
+        texture.dispose();
+    }
+
+    public float getTop() {
+        return this.y + this.height;
+    }
+
+    public void setTop(float posY) {
+        this.y = posY - this.height;
+    }
+
+    public void setBottom(float posY) {
+        this.y = posY;
+    }
+
+    public float getBottom() {
+        return getY();
+    }
+
+    public float getRight() {
+        return this.x + this.width;
+    }
+
+    public void setRight(float posX) {
+        this.x = posX - this.width;
+    }
+
 }
