@@ -3,6 +3,7 @@ package edu.citu.ping.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -10,6 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.equations.Back;
+import edu.citu.ping.Ping;
+import edu.citu.ping.accessors.TableAccessor;
 import edu.citu.ping.literals.Constants;
 import edu.citu.ping.managers.ScreenManager;
 import edu.citu.ping.managers.SettingsManager;
@@ -20,14 +24,14 @@ import edu.citu.ping.utils.LabelGenerator;
  */
 public class LoadingScreen implements BaseScreen {
 
-    private Game game;
+    private Ping game;
     private Stage stage;
 
     // all actors
     private ProgressBar progressBar; // for loading
     private Table table; // layout actor
 
-    public LoadingScreen(Game g) {
+    public LoadingScreen(Ping g) {
         game = g;
         stage = new Stage();
         table = new Table();
@@ -51,7 +55,10 @@ public class LoadingScreen implements BaseScreen {
 
     @Override
     public Tween getOutroTween() {
-        return null;
+        return Tween
+                .to(table, TableAccessor.POSITION_X, .8f)
+                .targetRelative(800)
+                .ease(Back.IN);
     }
 
     @Override
@@ -61,7 +68,21 @@ public class LoadingScreen implements BaseScreen {
 
     @Override
     public void render(float delta) {
+        // paint background
+        Gdx.gl.glClearColor(0.075f, 0.059f, 0.188f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // update assets & tween movements
+        game.assets.update();
+        game.tweens.update(delta);
+
+        // redraw progress bar
+        float progress = game.assets.getProgress() * 100;
+        progressBar.setValue(progress);
+
+        // redraw stage that contains all actors
+        stage.act(delta);
+        stage.draw();
     }
 
     @Override

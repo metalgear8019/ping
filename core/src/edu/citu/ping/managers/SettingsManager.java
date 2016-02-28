@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+import edu.citu.ping.Ping;
 import edu.citu.ping.literals.Constants;
 import edu.citu.ping.utils.LabelGenerator;
 import edu.citu.ping.utils.TextureGenerator;
@@ -15,7 +16,7 @@ import edu.citu.ping.utils.TextureGenerator;
  */
 public class SettingsManager {
     private static SettingsManager INSTANCE;
-    private Game game;
+    private Ping game;
 
     private BitmapFont titleFont;
     private BitmapFont scoreFont;
@@ -29,7 +30,7 @@ public class SettingsManager {
 
     private Texture[] particles;
 
-    public SettingsManager(Game g, boolean useDefaultValues) {
+    public SettingsManager(Ping g, boolean useDefaultValues) {
         game = g;
         particles = new Texture[3];
         if (useDefaultValues) {
@@ -49,11 +50,11 @@ public class SettingsManager {
         }
     }
 
-    public static SettingsManager initialize(Game g) {
+    public static SettingsManager initialize(Ping g) {
         return initialize(g, true);
     }
 
-    public static SettingsManager initialize(Game g, boolean useDefaultValues) {
+    public static SettingsManager initialize(Ping g, boolean useDefaultValues) {
         INSTANCE = new SettingsManager(g, useDefaultValues);
         return INSTANCE;
     }

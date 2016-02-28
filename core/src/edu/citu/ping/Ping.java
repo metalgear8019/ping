@@ -4,10 +4,17 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
+import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
+import edu.citu.ping.accessors.CameraAccessor;
+import edu.citu.ping.accessors.PaddleAccessor;
+import edu.citu.ping.accessors.TableAccessor;
+import edu.citu.ping.actors.Paddle;
 import edu.citu.ping.literals.Constants;
 import edu.citu.ping.managers.ScreenManager;
 import edu.citu.ping.managers.SettingsManager;
@@ -53,7 +60,9 @@ public class Ping extends Game {
 
 	private void setupTweenManager() {
 		tweens = new TweenManager();
-		// TODO: register all accessors to respective actors
+		Tween.registerAccessor(Camera.class, new CameraAccessor());
+		Tween.registerAccessor(Table.class, new TableAccessor());
+		Tween.registerAccessor(Paddle.class, new PaddleAccessor());
 	}
 
 	private void setupAssetManager() {
