@@ -1,10 +1,12 @@
 package edu.citu.ping.managers;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import edu.citu.ping.Ping;
 import edu.citu.ping.literals.Constants;
@@ -30,6 +32,8 @@ public class SettingsManager {
 
     private Texture[] particles;
 
+    private Skin skin;
+
     public SettingsManager(Ping g, boolean useDefaultValues) {
         game = g;
         particles = new Texture[3];
@@ -47,6 +51,8 @@ public class SettingsManager {
             particles[0] = TextureGenerator.generateRectangle(2, 2, Color.YELLOW);
             particles[1] = TextureGenerator.generateRectangle(3, 3, Color.YELLOW);
             particles[2] = TextureGenerator.generateRectangle(4, 4, Color.ORANGE);
+
+            skin = new Skin(Gdx.files.internal(Constants.DIR_SKIN));
         }
     }
 
@@ -122,6 +128,15 @@ public class SettingsManager {
         return this;
     }
 
+    public SettingsManager setSkin(String directory) {
+        return setSkin(new Skin(Gdx.files.internal(directory)));
+    }
+
+    public SettingsManager setSkin(Skin s) {
+        skin = s;
+        return this;
+    }
+
     public BitmapFont getTitleFont() {
         return titleFont;
     }
@@ -156,5 +171,9 @@ public class SettingsManager {
 
     public Texture[] getParticles() {
         return particles;
+    }
+
+    public Skin getSkin() {
+        return skin;
     }
 }

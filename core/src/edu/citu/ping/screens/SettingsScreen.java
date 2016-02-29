@@ -26,6 +26,8 @@ public class SettingsScreen implements BaseScreen {
 
     private Table table;
 
+    private TextButton backButton;
+
     public SettingsScreen(Ping g) {
         game = g;
         stage = new Stage(new StretchViewport(Ping.WIDTH, Ping.HEIGHT));
@@ -58,11 +60,11 @@ public class SettingsScreen implements BaseScreen {
             }
         });*/
 
-        TextButton backButton = new TextButton("Back", skin);
-        backButton.addListener(ListenerGenerator.goToScreen(new MainMenuScreen(game)));
+        backButton = new TextButton("Back", skin);
 
         table = new Table();
         table.setFillParent(true);
+        table.setX(-800);
         /*table.add(musicSwitchButton).width(200).height(75);
         table.row();*/
         table.add(backButton).pad(10).width(200).height(75);
@@ -88,6 +90,7 @@ public class SettingsScreen implements BaseScreen {
 
     @Override
     public void show() {
+        backButton.addListener(ListenerGenerator.goToScreen(new MainMenuScreen(game)));
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -97,6 +100,7 @@ public class SettingsScreen implements BaseScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.tweens.update(delta);
+
         stage.act(delta);
         stage.draw();
     }

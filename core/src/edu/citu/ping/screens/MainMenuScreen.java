@@ -3,12 +3,10 @@ package edu.citu.ping.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import aurelienribon.tweenengine.BaseTween;
@@ -19,7 +17,6 @@ import edu.citu.ping.Ping;
 import edu.citu.ping.accessors.TableAccessor;
 import edu.citu.ping.actors.Ball;
 import edu.citu.ping.actors.ParticleEmitter;
-import edu.citu.ping.managers.ScreenManager;
 import edu.citu.ping.managers.SettingsManager;
 import edu.citu.ping.utils.LabelGenerator;
 import edu.citu.ping.utils.ListenerGenerator;
@@ -37,6 +34,11 @@ public class MainMenuScreen implements BaseScreen {
     private Table table;
     private ParticleEmitter particleEmitter;
 
+    // components
+    private TextButton textButton;
+    private TextButton settingsButton;
+    private TextButton creditsButton;
+
     public MainMenuScreen(Ping g) {
         game = g;
         particleEmitter = new ParticleEmitter();
@@ -44,18 +46,14 @@ public class MainMenuScreen implements BaseScreen {
         stage = new Stage(new StretchViewport(Ping.WIDTH, Ping.HEIGHT));
         Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        TextButton textButton = new TextButton("2-Player \n First to Five", skin);
-        TextButton settingsButton = new TextButton("Settings", skin);
-        TextButton creditsButton = new TextButton("Credits", skin);
-
-        textButton.addListener(ListenerGenerator.goToScreen(new GameScreen(game)));
-        // settingsButton.addListener(ListenerGenerator.goToScreen(new SettingsScreen(game)));
-        // creditsButton.addListener(ListenerGenerator.goToScreen(new CreditsScreen(game)));
+        textButton = new TextButton("2-Player \n First to Five", skin);
+        settingsButton = new TextButton("Settings", skin);
+        creditsButton = new TextButton("Credits", skin);
 
         table = new Table();
         table.setFillParent(true);
         table.setX(-800f);
-        table.add(LabelGenerator.get("PING!", Color.WHITE, SettingsManager.get().getTitleFont())).pad(30);
+        table.add(LabelGenerator.getLabel("PING!", Color.WHITE, SettingsManager.get().getTitleFont())).pad(30);
         table.row();
         table.add(textButton).width(200).height(75);
         table.row();
@@ -90,6 +88,9 @@ public class MainMenuScreen implements BaseScreen {
 
     @Override
     public void show() {
+        textButton.addListener(ListenerGenerator.goToScreen(new GameScreen(game)));
+        settingsButton.addListener(ListenerGenerator.goToScreen(new SettingsScreen(game)));
+        creditsButton.addListener(ListenerGenerator.goToScreen(new CreditsScreen(game)));
         Gdx.input.setInputProcessor(stage);
     }
 

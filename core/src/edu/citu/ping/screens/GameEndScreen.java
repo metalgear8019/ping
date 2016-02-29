@@ -1,23 +1,16 @@
 package edu.citu.ping.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Back;
 import edu.citu.ping.Ping;
 import edu.citu.ping.accessors.TableAccessor;
@@ -41,23 +34,19 @@ public class GameEndScreen implements BaseScreen {
         Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
 
         TextButton menuButton = new TextButton("Main Menu", skin);
-        menuButton.addListener(ListenerGenerator.goToScreen(new MainMenuScreen(game)));
-
-        Label player1ScoreLabel = new Label(
-                "Ping Total Wins: " + String.valueOf(game.states.p1.getScore()), skin);
-        Label player2ScoreLabel = new Label(
-                "Pong Total Wins: " + String.valueOf(game.states.p2.getScore()), skin);
 
         table = new Table();
         table.setFillParent(true);
         table.setX(-800);
-        table.add(LabelGenerator.get(game.states.winner.name, Color.WHITE, SettingsManager.get().getTitleFont()));
+        table.add(LabelGenerator.getLabel(game.states.winner.name + " wins!", Color.WHITE, SettingsManager.get().getTitleFont()));
         table.row();
-        table.add(player1ScoreLabel);
+        table.add(LabelGenerator.getLabel(game.states.p1.toString(), skin));
         table.row();
-        table.add(player2ScoreLabel);
+        table.add(LabelGenerator.getLabel(game.states.p1.toString(), skin));
         table.row();
         table.add(menuButton).pad(20).width(200).height(75);
+
+        menuButton.addListener(ListenerGenerator.goToScreen(new MainMenuScreen(game)));
 
         stage.addActor(table);
     }

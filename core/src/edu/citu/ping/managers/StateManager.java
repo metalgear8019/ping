@@ -81,6 +81,11 @@ public class StateManager {
         public int getScore() {
             return score;
         }
+
+        @Override
+        public String toString() {
+            return name + "'s score: " + score;
+        }
     }
 
     public StateManager(Ping g) {

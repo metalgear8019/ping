@@ -5,21 +5,26 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
  * Created by metalgear8019 on 2/28/16.
  */
 public class LabelGenerator {
-    public static Label get(String text, Color color, String fontStyle, int fontSize) {
-        return get(text, color, getFont(fontStyle, fontSize));
+    public static Label getLabel(String text, Color color, String fontStyle, int fontSize) {
+        return getLabel(text, color, getFont(fontStyle, fontSize));
     }
 
-    public static Label get(String text, Color color, BitmapFont font) {
-        return get(text, new Label.LabelStyle(font, color));
+    public static Label getLabel(String text, Color color, BitmapFont font) {
+        return getLabel(text, new Label.LabelStyle(font, color));
     }
 
-    public static Label get(String text, Label.LabelStyle labelStyle) {
+    public static Label getLabel(String text, Label.LabelStyle labelStyle) {
         return new Label(text, labelStyle);
+    }
+
+    public static Label getLabel(String text, Skin skin) {
+        return new Label(text, skin);
     }
 
     public static BitmapFont getFont(String fontStyle, int fontSize) {

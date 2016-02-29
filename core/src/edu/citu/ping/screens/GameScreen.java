@@ -321,7 +321,7 @@ public class GameScreen implements BaseScreen {
                     game.states.p2.incrementScore();
                     game.states.winner = game.states.p2;
                 }
-                ScreenManager.get().swap(new GameEndScreen(game));
+                game.screens.swap(new GameEndScreen(game));
             }
         }
     }
@@ -385,7 +385,7 @@ public class GameScreen implements BaseScreen {
 
     private void startMusic() {
         /*game.musicToPlay.stop();
-        game.musicToPlay = game.assetManager.get("recall_of_the_shadows.mp3", Music.class);
+        game.musicToPlay = game.assetManager.getLabel("recall_of_the_shadows.mp3", Music.class);
         if (game.musicOn) {
             game.musicToPlay.play();
             game.musicToPlay.setLooping(true);

@@ -13,6 +13,8 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.equations.Back;
 import edu.citu.ping.Ping;
 import edu.citu.ping.accessors.TableAccessor;
+import edu.citu.ping.literals.Constants;
+import edu.citu.ping.utils.LabelGenerator;
 import edu.citu.ping.utils.ListenerGenerator;
 
 /**
@@ -25,38 +27,31 @@ public class CreditsScreen implements BaseScreen {
 
     private Table table;
 
+    private TextButton backButton;
+
     public CreditsScreen(Ping g) {
         game = g;
         stage = new Stage(new StretchViewport(Ping.WIDTH, Ping.HEIGHT));
         Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        Label creditLabel0 = new Label("PROGRAMMING AND GAME DESIGN", skin);
-        Label creditLabel1 = new Label("Justin Armstrong", skin);
-        Label creditLabel2 = new Label(" ", skin);
-        Label musicLabel0 = new Label("MUSIC", skin);
-        Label musicLabel1 = new Label("bart: Through Pixelated Clouds", skin);
-        Label musicLabel2 = new Label("FoxSynergy: Never Stop Running", skin);
-        Label musicLabel3 = new Label("http://opengameart.org", skin);
-
-        TextButton backButton = new TextButton("Back", skin);
-        backButton.addListener(ListenerGenerator.goToScreen(new MainMenuScreen(game)));
+        backButton = new TextButton("Back", skin);
 
         table = new Table();
         table.setFillParent(true);
         table.setX(-800);
-        table.add(creditLabel0);
+        table.add(LabelGenerator.getLabel(Constants.LBL_CREDITS_HEADER, skin));
+        for (String s : Constants.LBL_CREDITS_DEVELOPERS) {
+            table.row();
+            table.add(LabelGenerator.getLabel(s, skin));
+        }
         table.row();
-        table.add(creditLabel1);
+        table.add(LabelGenerator.getLabel(" ", skin));
         table.row();
-        table.add(creditLabel2);
-        table.row();
-        table.add(musicLabel0);
-        table.row();
-        table.add(musicLabel1);
-        table.row();
-        table.add(musicLabel2);
-        table.row();
-        table.add(musicLabel3);
+        table.add(LabelGenerator.getLabel(Constants.LBL_CREDITS_SPECIAL_THANKS, skin));
+        for (String s : Constants.LBL_CREDITS_SPONSORS) {
+            table.row();
+            table.add(LabelGenerator.getLabel(s, skin));
+        }
         table.row();
         table.add(backButton).width(200).height(75).pad(50);
 
@@ -81,6 +76,7 @@ public class CreditsScreen implements BaseScreen {
 
     @Override
     public void show() {
+        backButton.addListener(ListenerGenerator.goToScreen(new MainMenuScreen(game)));
         Gdx.input.setInputProcessor(stage);
     }
 

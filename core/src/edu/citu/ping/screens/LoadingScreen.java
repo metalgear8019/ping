@@ -1,6 +1,5 @@
 package edu.citu.ping.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -41,7 +40,7 @@ public class LoadingScreen implements BaseScreen {
         progressBar = new ProgressBar(0, 100, 1, false, skin);
         progressBar.setAnimateDuration(1f);
         progressBar.setAnimateInterpolation(Interpolation.sine);
-        table.add(LabelGenerator.get(Constants.LBL_LOADING, Color.WHITE, SettingsManager.get().getLoadingFont()));
+        table.add(LabelGenerator.getLabel(Constants.LBL_LOADING, Color.WHITE, SettingsManager.get().getLoadingFont()));
         table.row();
         table.add(progressBar).left();
 
